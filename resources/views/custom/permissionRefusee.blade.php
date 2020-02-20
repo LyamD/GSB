@@ -14,17 +14,7 @@
                         </div>
                     @endif
                     <p>
-                    @can('changer_budget_region')
-                        Changer le budget de mes régions
-                    @endcan
-
-                    @can('changer_budget_region_all')
-                        Accéder au budget de toutes les régions
-                    @endcan
-
-                    @can('controler-region')
-                        Editer les régions
-                    @endcan
+                        Vous n'avez pas les droits pour accéder à cette page :(
                     </p>
                 </div>
             </div>
