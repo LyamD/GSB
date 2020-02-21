@@ -16,7 +16,7 @@
                     <p>
                     
                     @can('acceder_region')
-                        <a href="{{route()}}">Accéder au région</a>
+                        <a href="{{route('regions.liste')}}" class="btn btn-dark">Accéder au région</a>
                     @endcan
 
                     @can('changer_budget_region')

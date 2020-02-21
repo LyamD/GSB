@@ -75,7 +75,7 @@ class RegionController extends Controller
         }
 
         $region->save();
-        return redirect('home/regions');
+        return redirect('home/regions/liste');
     }
 
     /**

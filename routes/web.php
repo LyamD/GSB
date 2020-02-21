@@ -24,7 +24,9 @@ Route::resource('home/regions', 'RegionController')->only(
     ['index', 'store', 'update', 'destroy']
 );
 
-//resources 'manuelle'
+// ---- resources 'manuelle'
+
+//Utilisateurs
 Route::get('home/utilisateurs/{id}/changerRole', 'RoleController')->middleware(['permission:controler_region'])->name('utilisateurs.changerRole');
 
 Route::get('home/utilisateurs',function()
@@ -32,3 +34,10 @@ Route::get('home/utilisateurs',function()
     $users = App\User::all();
         return view('admin.listeUser')->with('users', $users);
 })->middleware(['role:superAdmin'])->name('utilisateurs.liste');
+
+// Regions
+Route::get('home/regions/liste', function()
+{
+    $regions = App\Region::all();
+    return view('region.liste')->with('regions', $regions);
+})->middleware(['permission:acceder_region'])->name('regions.liste');
