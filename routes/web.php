@@ -27,7 +27,8 @@ Route::resource('home/regions', 'RegionController')->only(
 // ---- resources 'manuelle'
 
 //Utilisateurs
-Route::get('home/utilisateurs/{id}/changerRole', 'RoleController')->middleware(['permission:controler_region'])->name('utilisateurs.changerRole');
+Route::get('home/utilisateurs/{id}/changerRole', 'RoleController')
+    ->middleware(['permission:controler_region'])->name('utilisateurs.changerRole');
 
 Route::get('home/utilisateurs',function()
 {
@@ -41,3 +42,10 @@ Route::get('home/regions/liste', function()
     $regions = App\Region::all();
     return view('region.liste')->with('regions', $regions);
 })->middleware(['permission:acceder_region'])->name('regions.liste');
+
+Route::put('home/regions/employeeFinPassage/{id}/{idEmployee}', 'RegionController@employeeFinPassage')
+    ->middleware(['permission:changer_employee_region'])->name('regions.employeeFinPassage');
+
+Route::put('home/regions/employeeDebutPassage/{id}', 'RegionController@employeeDebutPassage')
+->middleware(['permission:changer_employee_region'])->name('regions.employeeDebutPassage');
+

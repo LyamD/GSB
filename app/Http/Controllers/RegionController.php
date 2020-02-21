@@ -32,16 +32,6 @@ class RegionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -87,5 +77,26 @@ class RegionController extends Controller
     public function destroy(Region $region)
     {
         //
+    }
+
+    public function employeeFinPassage(Request $request, $id, $idEmployee)
+    {
+        $region = Region::find($id);
+        $region->employee()->updateExistingPivot($idEmployee, ['dateFin' => $request->dateFin]);
+        return redirect('home/regions/liste');
+    }
+
+    public function employeeDebutPassage(Request $request, $id)
+    {
+        $region = Region::find($id);
+        $region->employee()->attach($request->user_id, ['dateDebut' => $request->dateDebut]);
+        return redirect('home/regions/liste');
+    }
+
+    public function employeeDeletePassage($id, $idEmployee)
+    {
+        $region = Region::find($id);
+        $region->employee()->detach($idEmployee);
+        return redirect('home/regions/liste');
     }
 }

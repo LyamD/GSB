@@ -17,39 +17,134 @@
                         </tr>
                         @foreach ($regions as $i)
                         @php
-                            $rep = $i->responsable()->get();
+                        $rep = $i->responsable()->get();
                         @endphp
                         @if ($rep[0]['id'] == Auth::user()->id)
-                            <tr class="table-success">
-                                
-                        @else
-                            <tr>
-                        @endif
-                            <td>{{ $i['nomRegion']}}</td>
+                        <tr class="table-success">
+
+                            @else
+                        <tr>
+                            @endif
+                            <td>
+                                <h4 class="">{{ $i['nomRegion']}} </h4>
+                            </td>
                             <td>{{ $i['budgetGlobalAnnuel']}}</td>
                             <td>{{ empty($rep[0]['nom']) ? 'Non défini' : $rep[0]['nom'] }}</td>
                             <td>
-                                @php 
+                                @php
                                 $user = Auth::user();
                                 @endphp
-                                @if (($user->hasPermissionTo('changer_budget_all')) || ( $user->hasPermissionTo('changer_budget_region') && $user->id == $rep[0]['id']) )
-                                    <form method="POST" action="{{ action('RegionController@update', $i['id']) }}" >
-                                        @csrf
-                                        @method('PUT')
-                                        <input id="budgetGlobalAnnuel" type="number" class="form-control @error('budgetGlobalAnnuel') is-invalid @enderror" name="budgetGlobalAnnuel" value="{{ $i['budgetGlobalAnnuel'] }}" required autofocus>
-    
-                                        @error('budgetGlobalAnnuel')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Modifier') }}
-                                        </button>
-                                    </form>
+                                @if (($user->hasPermissionTo('changer_budget_all')) || (
+                                $user->hasPermissionTo('changer_budget_region') && $user->id == $rep[0]['id']) )
+                                <form method="POST" action="{{ action('RegionController@update', $i['id']) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input id="budgetGlobalAnnuel" type="number"
+                                        class="form-control @error('budgetGlobalAnnuel') is-invalid @enderror"
+                                        name="budgetGlobalAnnuel" value="{{ $i['budgetGlobalAnnuel'] }}" required
+                                        autofocus>
+
+                                    @error('budgetGlobalAnnuel')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Modifier') }}
+                                    </button>
+                                </form>
                                 @endif
                             </td>
-                            
+
+                        </tr>
+                        @php
+                        $employees = $i->employee()->get();
+                        @endphp
+                        <tr>
+                            <td colspan="5">
+                                <h6 class="mt-2">Employé qui sont passé dans cette région</h6>
+                                <table class="mb-5">
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Date Début</th>
+                                        <th>Date Fin</th>
+                                        <th colspan="3">Action</th>
+                                    </tr>
+                                    @foreach ($employees as $employee)
+                                    @if ($employee->isInRegion($i->id))
+                                    <tr class="table-info">
+                                        @else
+                                    <tr>
+                                        @endif
+                                        <td>{{$employee['prenom']}}</td>
+                                        <td>{{$employee['nom']}}</td>
+                                        <td>{{$employee->pivot->dateDebut}}</td>
+                                        <td>{{$employee->pivot->dateFin}}</td>
+                                        <td colspan="3">
+                                            @if ($employee->isInRegion($i->id))
+                                            <form method="POST"
+                                                action="{{ route('regions.employeeFinPassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <input id="dateFin" type="date"
+                                                    class="form-control @error('dateFin') is-invalid @enderror"
+                                                    name="dateFin" value="{{ old('dateFin') }}" required autofocus>
+
+                                                @error('dateFin')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                                <button type="submit" class="btn btn-primary">
+                                                    {{ __('Terminer passage') }}
+                                                </button>
+                                            </form>
+                                            @else
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="5">
+                                            <form method="POST"
+                                            action="{{ route('regions.employeeDebutPassage', $i['id']) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    @php
+                                                $users = App\User::role("employe")->get();
+                                                @endphp
+                                                <select name="user_id" class="form-control">
+                                                    @foreach ($users as $user)
+                                                    <option value="{{$user['id']}}">{{$user['nom']}}</option>
+                                                    @endforeach
+                                                </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <input id="dateDebut" type="date"
+                                                    class="form-control @error('dateDebut') is-invalid @enderror"
+                                                    name="dateDebut" value="{{ old('dateDebut') }}" required autofocus>
+
+                                                @error('dateDebut')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                                </div>
+                                                <div class="col-4">
+                                                    <button type="submit" value="Submit" class="btn btn-primary">
+                                                        {{ __('Ajouter passage') }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </form>
+                                            </td>
+                                    </tr>
+                                </table>
+                            </td>
                         </tr>
                         @endforeach
                     </table>

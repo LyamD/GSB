@@ -19,4 +19,9 @@ class Region extends Model
     {
         return $this->belongsTo('App\User', 'utilisateurs_id');
     }
+
+    public function employee()
+    {
+        return $this->belongsToMany('App\User', 'estpasser', 'regions_id', 'utilisateurs_id')->withPivot('dateDebut', 'dateFin');
+    }
 }

@@ -15,6 +15,11 @@
                     @endif
                     <p>
                     
+                    @php
+                        $reg = Auth::user()->regions()->get();
+                    @endphp
+                
+
                     @can('acceder_region')
                         <a href="{{route('regions.liste')}}" class="btn btn-dark">Accéder au région</a>
                     @endcan
