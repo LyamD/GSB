@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Region;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,7 +49,12 @@ class RegionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $region = new Region;
+        $region->nomRegion = $request->input('nomRegion');
+
+        $region->save();
+        
+        return redirect('home/regions');
     }
 
     /**
@@ -60,7 +66,16 @@ class RegionController extends Controller
      */
     public function update(Request $request, Region $region)
     {
-        //
+        $region->nomRegion = empty($request->input('nomRegion'))  ? $region->nomRegion : $request->input('nomRegion');
+        $region->budgetGlobalAnnuel = empty($request->input('budgetGlobalAnnuel'))  ? $region->budgetGlobalAnnuel : $request->input('budgetGlobalAnnuel');
+
+        if (!empty($request->utilisateurs_id)) {
+            $user = User::find($request->utilisateurs_id);
+            $region->responsable()->associate($user);
+        }
+
+        $region->save();
+        return redirect('home/regions');
     }
 
     /**

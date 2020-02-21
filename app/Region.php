@@ -10,9 +10,9 @@ class Region extends Model
 
     public $timestamps = false;
 
-    protected $attributes = [
+    protected $fillable = [
         'nomRegion',
-        'BudgetGlobalAnnuel'
+        'budgetGlobalAnnuel'
     ];
 
     public function responsable()

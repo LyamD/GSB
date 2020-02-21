@@ -14,6 +14,11 @@
                         </div>
                     @endif
                     <p>
+                    
+                    @can('acceder_region')
+                        <a href="{{route()}}">Accéder au région</a>
+                    @endcan
+
                     @can('changer_budget_region')
                         Changer le budget de mes régions
                     @endcan
@@ -23,7 +28,9 @@
                     @endcan
 
                     @can('controler-region')
-                        Editer les régions
+                        <a href="{{ action('RegionController@index') }}" class="btn btn-dark">
+                            Editer les régions
+                        </a>
                     @endcan
                     </p>
                 </div>
