@@ -13,6 +13,7 @@
                             <th>Nom</th>
                             <th>Prénom</th>
                             <th>rôles</th>
+                            <th>Matricule</th>
                             <th>email</th>
                             <th>date de naissance</th>
                             <th>adresse</th>
@@ -33,6 +34,7 @@
                             <td>@foreach ($userRole as $r)
                                 {{$r}}
                             @endforeach</td>
+                            <td>{{ $u['matricule'] }}</td>
                             <td>{{ $u['email']}}</td>
                             <td>{{ $u['dateNaissance']}}</td>
                             <td>{{ $u['adresse'] }}, {{ $u['adresse2'] }}, {{$u['CP']}} {{$u['ville']}}</td>
@@ -51,6 +53,34 @@
                             <td>supprimer</td>
                             <td>créer le : {{$u['created_at']}}, <br> Dernière modif le : {{$u['updated_at']}}</td>
                         </tr>
+                        @if ($u->hasRole('employe') && Auth::user()->hasRole('superAdmin') && $u->matricule == null)
+                            <td colspan="10">
+                                <form method="POST"
+                                            action="{{ route('utilisateurs.genererMatricule', $u['id']) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="dateEmbauche" class="col-md-4 col-form-label text-md-right">{{ __('date d\'embauche') }}</label>
+                                                    <input id="dateEmbauche" type="date"
+                                                    class="form-control @error('dateEmbauche') is-invalid @enderror"
+                                                    name="dateEmbauche" value="{{ old('dateEmbauche') }}" required autofocus>
+
+                                                @error('dateEmbauche')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                                </div>
+                                                <div class="col-4">
+                                                    <button type="submit" value="Submit" class="btn btn-primary">
+                                                        {{ __('Génerer Matricule') }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </form>
+                            </td>
+                        @endif
                         @endforeach
                     </table>
 

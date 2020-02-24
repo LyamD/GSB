@@ -26,6 +26,25 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        // $superAdmin = Role::create(['name' => 'superAdmin']);
+        // $employe = Role::create(['name' => 'employe']);
+        // $respRegion = Role::create(['name' => 'respRegion']);
+        // $indefini = Role::create(['name' => 'indefini']);
+
+        // $perm1 = Permission::create(['name' => 'acceder_region']);
+        // $perm2 = Permission::create(['name' => 'changer_budget_region']);
+        // $perm3 = Permission::create(['name' => 'changer_budget_region_all']);
+        // $perm4 = Permission::create(['name' => 'controler-region']);
+        // $perm5 = Permission::create(['name' => 'changer_employee_region']);
+
+        // $superAdmin->syncPermissions(Permission::all()->pluck('name'));
+        // $employe->givePermissionTo($perm1);
+        // $respRegion->syncPermissions([$perm1, $perm2]);
+
+        // $user = Auth::user();
+        // $user->assignRole($superAdmin);
+
         return view('home');
     }
 }

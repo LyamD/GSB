@@ -7,6 +7,9 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
+                        @php
+                        $user = Auth::user();
+                        @endphp
                 <div class="card-body">
                     <table class="table">
                         <tr>
@@ -31,10 +34,7 @@
                             <td>{{ $i['budgetGlobalAnnuel']}}</td>
                             <td>{{ empty($rep[0]['nom']) ? 'Non défini' : $rep[0]['nom'] }}</td>
                             <td>
-                                @php
-                                $user = Auth::user();
-                                @endphp
-                                @if (($user->hasPermissionTo('changer_budget_all')) || (
+                                @if (($user->hasPermissionTo('changer_budget_region_all')) || (
                                 $user->hasPermissionTo('changer_budget_region') && $user->id == $rep[0]['id']) )
                                 <form method="POST" action="{{ action('RegionController@update', $i['id']) }}">
                                     @csrf
@@ -82,7 +82,9 @@
                                         <td>{{$employee->pivot->dateDebut}}</td>
                                         <td>{{$employee->pivot->dateFin}}</td>
                                         <td colspan="3">
-                                            @if ($employee->isInRegion($i->id))
+                                            @if ($employee->isInRegion($i->id) && 
+                                                $user->id == $rep[0]->id && 
+                                                ($user->hasPermissionTo('changer_employee_region') || $user->hasRole('superAdmin') ))
                                             <form method="POST"
                                                 action="{{ route('regions.employeeFinPassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
                                                 @csrf
@@ -102,10 +104,23 @@
                                                 </button>
                                             </form>
                                             @else
+                                                @if ($user->id == $rep[0]->id && 
+                                                    $user->hasPermissionTo('changer_employee_region') || $user->hasRole('superAdmin'))
+                                                    <form method="POST"
+                                                    action="{{ route('regions.employeeDeletePassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-primary">
+                                                        {{ __('Supprimer passage') }}
+                                                    </button>
+                                                </form>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @if ($user->id == $rep[0]->id && 
+                                    $user->hasPermissionTo('changer_employee_region') || $user->hasRole('superAdmin'))
                                     <tr>
                                         <td colspan="5">
                                             <form method="POST"
@@ -143,6 +158,7 @@
                                             </form>
                                             </td>
                                     </tr>
+                                    @endif
                                 </table>
                             </td>
                         </tr>

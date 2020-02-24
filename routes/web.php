@@ -27,7 +27,7 @@ Route::resource('home/regions', 'RegionController')->only(
 // ---- resources 'manuelle'
 
 //Utilisateurs
-Route::get('home/utilisateurs/{id}/changerRole', 'RoleController')
+Route::get('home/utilisateurs/{id}/changerRole', 'RoleController@changerRole')
     ->middleware(['permission:controler_region'])->name('utilisateurs.changerRole');
 
 Route::get('home/utilisateurs',function()
@@ -35,6 +35,10 @@ Route::get('home/utilisateurs',function()
     $users = App\User::all();
         return view('admin.listeUser')->with('users', $users);
 })->middleware(['role:superAdmin'])->name('utilisateurs.liste');
+
+//employées
+Route::put('home/utilisateurs/genererMatricule/{id}', 'RoleController@genererMatricule')
+    ->middleware(['role:superAdmin'])->name('utilisateurs.genererMatricule');
 
 // Regions
 Route::get('home/regions/liste', function()
@@ -48,4 +52,7 @@ Route::put('home/regions/employeeFinPassage/{id}/{idEmployee}', 'RegionControlle
 
 Route::put('home/regions/employeeDebutPassage/{id}', 'RegionController@employeeDebutPassage')
 ->middleware(['permission:changer_employee_region'])->name('regions.employeeDebutPassage');
+
+Route::delete('home/regions/employeeDeletePassage/{id}/{idEmployee}', 'RegionController@employeeDeletePassage')
+    ->middleware(['permission:changer_employee_region'])->name('regions.employeeDeletePassage');
 
