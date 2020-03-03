@@ -82,10 +82,10 @@
                                         <td>{{$employee->pivot->dateDebut}}</td>
                                         <td>{{$employee->pivot->dateFin}}</td>
                                         <td colspan="3">
-                                            @if ($employee->isInRegion($i->id) && 
-                                                $user->id == $rep[0]->id && 
-                                                ($user->hasPermissionTo('changer_employee_region') || $user->hasRole('superAdmin') ))
-                                            <form method="POST"
+                                            @if (($user->id == $rep[0]->id && 
+                                            $user->hasPermissionTo('changer_employee_region')) || $user->hasRole('superAdmin'))
+                                                @if ($employee->isInRegion($i->id))
+                                                <form method="POST"
                                                 action="{{ route('regions.employeeFinPassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
                                                 @csrf
                                                 @method('PUT')
@@ -103,17 +103,15 @@
                                                     {{ __('Terminer passage') }}
                                                 </button>
                                             </form>
-                                            @else
-                                                @if ($user->id == $rep[0]->id && 
-                                                    $user->hasPermissionTo('changer_employee_region') || $user->hasRole('superAdmin'))
-                                                    <form method="POST"
-                                                    action="{{ route('regions.employeeDeletePassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-primary">
-                                                        {{ __('Supprimer passage') }}
-                                                    </button>
-                                                </form>
+                                                @else
+                                                <form method="POST"
+                                                action="{{ route('regions.employeeDeletePassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-primary">
+                                                    {{ __('Supprimer passage') }}
+                                                </button>
+                                            </form>
                                                 @endif
                                             @endif
                                         </td>

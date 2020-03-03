@@ -53,6 +53,15 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Region', 'estpasser', 'utilisateurs_id', 'regions_id')->withPivot('dateDebut', 'dateFin');
     }
 
+    public function visiteurMedicaux()
+    {
+        if ($this->hasRole('visiteurMedicaux')) {
+            return $this->hasOne('App\VisiteurMedicaux', 'id');
+        } else {
+            return null;
+        }
+    }
+
     public function isInRegion($id)
     {
         $region = $this->regions()->find($id);

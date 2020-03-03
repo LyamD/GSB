@@ -24,6 +24,10 @@ Route::resource('home/regions', 'RegionController')->only(
     ['index', 'store', 'update', 'destroy']
 );
 
+Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
+    ['show']
+);
+
 // ---- resources 'manuelle'
 
 //Utilisateurs
