@@ -22,4 +22,11 @@ SET
 NEW.prenom = CONCAT(UPPER(LEFT(NEW.prenom, 1)), SUBSTRING(NEW.prenom, 2)), 
 NEW.nom = UPPER(NEW.prenom)
 
+//Trigger : Historisation budget d un visiteur
+
+CREATE TRIGGER budgetVisiteurHistorisation AFTER UPDATE ON visiteurmedicaux
+FOR EACH ROW 
+INSERT INTO visiteurbudgethisto(budget, created_at, visiteurMedicaux_id)
+VALUES (NEW.budget, NOW(), NEW.id)
+
 //Vue : Liste des employées et de leur régions passée

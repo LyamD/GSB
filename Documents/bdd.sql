@@ -76,6 +76,15 @@ CREATE TABLE Responsables(
    FOREIGN KEY(id) REFERENCES VisiteurMedicaux(id)
 );
 
+CREATE TABLE IF NOT EXISTS visiteurBudgetHisto(
+   id INT AUTO_INCREMENT,
+   budget DECIMAL(13,2) NOT NULL,
+   created_at DATETIME,
+   visiteurMedicaux_id INT NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(visiteurMedicaux_id) REFERENCES VisiteurMedicaux(id)
+);
+
 CREATE TABLE Medicaments(
    numeroProduit VARCHAR(10),
    nomCommercial VARCHAR(50),

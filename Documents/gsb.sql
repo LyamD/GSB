@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 24 fév. 2020 à 14:26
+-- Généré le :  jeu. 05 mars 2020 à 21:06
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `activitescomplementaires` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `responsables_id` int(11) NOT NULL,
+  `visiteurmedicaux_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `responsables_id` (`responsables_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -125,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `estpasser` (
 
 INSERT INTO `estpasser` (`utilisateurs_id`, `regions_id`, `dateDebut`, `dateFin`) VALUES
 (2, 1, '2020-02-01', '2020-02-23'),
-(2, 2, '2020-02-02', '2020-02-09');
+(2, 2, '2020-02-02', '2020-02-09'),
+(3, 1, '2020-03-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -271,7 +273,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (8, 'App\\User', 2),
 (8, 'App\\User', 3),
 (9, 'App\\User', 2),
-(10, 'App\\User', 5);
+(10, 'App\\User', 5),
+(11, 'App\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -315,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `permissions`
@@ -326,7 +329,9 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (15, 'changer_employee_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
 (13, 'changer_budget_region_all', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
 (12, 'changer_budget_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(11, 'acceder_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26');
+(11, 'acceder_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
+(16, 'gerer_visite', 'web', '2020-03-01 15:40:41', '2020-03-01 15:40:41'),
+(17, 'gererVisiteur', 'web', '2020-03-01 16:00:57', '2020-03-01 16:00:57');
 
 -- --------------------------------------------------------
 
@@ -379,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `roles`
@@ -389,7 +394,9 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 (9, 'respRegion', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
 (8, 'employe', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
 (7, 'superAdmin', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(10, 'indefini', 'web', '2020-02-23 19:51:45', '2020-02-23 19:51:45');
+(10, 'indefini', 'web', '2020-02-23 19:51:45', '2020-02-23 19:51:45'),
+(11, 'visiteurMedicaux', 'web', '2020-03-01 15:40:41', '2020-03-01 15:40:41'),
+(12, 'respVisiteur', 'web', '2020-03-01 16:00:57', '2020-03-01 16:00:57');
 
 -- --------------------------------------------------------
 
@@ -417,7 +424,9 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (12, 9),
 (13, 7),
 (14, 7),
-(15, 7);
+(15, 7),
+(16, 11),
+(17, 12);
 
 -- --------------------------------------------------------
 
@@ -501,7 +510,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 --
 
 INSERT INTO `utilisateurs` (`id`, `email`, `email_verified_at`, `password`, `matricule`, `nom`, `prenom`, `dateNaissance`, `adresse`, `adresse2`, `CP`, `ville`, `dateEmbauche`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'lyam_durand@outlook.fr', NULL, '$2y$10$2ORaUk9Axkosp1nSgnz.puoGWln8AJF.urdXCM1NouIoyeeUymXz.', NULL, 'Lyam', 'Durand', '2000-08-03', '84 Rue du moinas', NULL, '30960', 'Les Mages', NULL, NULL, '2020-02-18 01:39:01', '2020-02-18 01:39:01'),
+(1, 'lyam_durand@outlook.fr', NULL, '$2y$10$2ORaUk9Axkosp1nSgnz.puoGWln8AJF.urdXCM1NouIoyeeUymXz.', NULL, 'Lyam', 'Durand', '2000-08-03', '84 Rue du moinas', NULL, '30960', 'Les Mages', NULL, 'LUuOlF91TOohjzJUN4gHCx7gk5Z4kzNnIAu8EWn5BvawlkwaWKiLpDq5Opb9', '2020-02-18 01:39:01', '2020-02-18 01:39:01'),
 (2, 'jean_dupont@hotmail.fr', NULL, '$2y$10$MRiZYgX9sM47m5pGeCYBMuQCW1uizX1t1RNGzlmHbdxc/TbYeUqDC', 'DUJE80', 'Dupont', 'Jean', '1980-04-08', '80 Rue des avenues', 'Chemin des D', '42666', 'Paris', NULL, NULL, '2020-02-21 01:34:33', '2020-02-21 01:34:33'),
 (3, 'gerard_buisson@hotmail.fr', NULL, '$2y$10$aw8UG8B0gh6pxIgMA1S6d.jLKK.xz1iD/4uMXYoj/xC/MM6hcTKIa', 'BUGE88', 'Buisson', 'Gerard', '1988-04-06', 'Adresse de vrai bogoss', NULL, '42069', 'BogossCity', NULL, NULL, '2020-02-21 03:41:33', '2020-02-21 03:41:33');
 
@@ -540,6 +549,22 @@ CREATE TABLE IF NOT EXISTS `visite` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `visiteurbudgethisto`
+--
+
+DROP TABLE IF EXISTS `visiteurbudgethisto`;
+CREATE TABLE IF NOT EXISTS `visiteurbudgethisto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `budget` decimal(13,2) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `visiteurMedicaux_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `visiteurMedicaux_id` (`visiteurMedicaux_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `visiteurmedicaux`
 --
 
@@ -552,6 +577,16 @@ CREATE TABLE IF NOT EXISTS `visiteurmedicaux` (
   `budget` decimal(13,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déclencheurs `visiteurmedicaux`
+--
+DROP TRIGGER IF EXISTS `budgetVisiteurHistorisation`;
+DELIMITER $$
+CREATE TRIGGER `budgetVisiteurHistorisation` AFTER UPDATE ON `visiteurmedicaux` FOR EACH ROW INSERT INTO visiteurbudgethisto(budget, created_at, visiteurMedicaux_id)
+VALUES (NEW.budget, NOW(), NEW.id)
+$$
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
