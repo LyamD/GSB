@@ -6,8 +6,16 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Régions dont je suis responsable</div>
+                @php
+                    use App\Passage;
+                    use App\User;
+                @endphp
 
                 @foreach ($regions as $region)
+
+                @php
+                    $passages = Passage::where('regions_id', $region->id)->orderBy('utilisateurs_id')->get();
+                @endphp
                     
                 <div class="card">
                     <div class="card-header">
@@ -16,11 +24,11 @@
                     </div>
 
                     @php
-                        $visiteurs = $region->employee()->get();
+                        
                     @endphp
                     
                     <div class="card-body">
-                        <h6>Employés dans cette région</h6>
+                        <h6>Employés actuellement dans cette région</h6>
                         <table class="table">
                             <tr>
                                 <th>Nom - Prénom</th>
@@ -31,9 +39,16 @@
                                 <th colspan="2">Action</th>
                             </tr> 
                             
-                            @foreach ($visiteurs as $visiteur)
-                                @if ($visiteur->pivot->dateFin == null)
-                                    {{$visiteur->get()->nom}}
+                            @foreach ($passages as $passage)
+                                @if ($passage->dateFin == null)
+                                @php
+                                    $employe = User::find($passage->utilisateurs_id);
+                                @endphp
+                                <tr>
+                                <td>{{$employe['nom']}} - {{$employe['prenom']}}</td>
+                                </tr>
+
+                                    
                                 @endif
                             @endforeach
                         </table>
