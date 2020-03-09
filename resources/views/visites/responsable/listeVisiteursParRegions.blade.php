@@ -9,6 +9,7 @@
                 @php
                     use App\Passage;
                     use App\User;
+                    use App\VisiteurMedicaux;
                 @endphp
 
                 @foreach ($regions as $region)
@@ -33,6 +34,7 @@
                             <tr>
                                 <th>Nom - Prénom</th>
                                 <th>Matricule</th>
+                                <th>Objectif</th>
                                 <th>Prime</th>
                                 <th>Avantages</th>
                                 <th>Budget alloué</th>
@@ -43,9 +45,15 @@
                                 @if ($passage->dateFin == null)
                                 @php
                                     $employe = User::find($passage->utilisateurs_id);
+                                    $visiteur = VisiteurMedicaux::find($employe->id);
                                 @endphp
                                 <tr>
                                 <td>{{$employe['nom']}} - {{$employe['prenom']}}</td>
+                                <td>{{$employe['matricule']}}</td>
+                                <td>{{$visiteur['objectif']}}</td>
+                                <td>{{$visiteur['prime']}}</td>
+                                <td>{{$visiteur['avantages']}}</td>
+                                <td>{{$visiteur['budget']}}</td>
                                 </tr>
 
                                     

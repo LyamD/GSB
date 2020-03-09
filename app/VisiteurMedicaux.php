@@ -21,7 +21,7 @@ class VisiteurMedicaux extends Model
 
     public function employe()
     {
-        return $this->belongsTo('App\User', 'id');
+        return $this->belongsTo('App\User', 'id', 'id');
     }
 
     public function responsable()

@@ -63,21 +63,23 @@ class User extends Authenticatable
 
     public function visiteurMedicaux()
     {
+        
         if ($this->hasRole('visiteurMedicaux')) {
-            return getVisiteurMed();
+            return $this->getVisiteurMed();
         } else {
             return null;
         }
     }
 
     private function getVisiteurMed() {
-        return $this->hasOne('App\VisiteurMedicaux', 'id');
+        // TODO : fixer ce hasOne qui marche pas
+        return $this->hasOne('App\VisiteurMedicaux', 'id', 'id');
     }
 
     public function responsable()
     {
         if ($this->hasRole('responsable')) {
-            return getVisiteurMed()->responsable();
+            return $this->getVisiteurMed()->responsable();
         } else {
             return null;
         }

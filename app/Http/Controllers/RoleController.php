@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\VisiteurMedicaux;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
@@ -15,7 +16,7 @@ class RoleController extends Controller
         if ($user->hasRole($request->role)) {
             $user->removeRole($request->role);
         } else {
-            $user->assignRole($request->role);
+            $this->assignerRole($request->role, $id);
         }
         return redirect('home/utilisateurs');
     }
@@ -24,5 +25,22 @@ class RoleController extends Controller
     {
         DB::statement('call generer_matricule(?,?)', [$id, $request->dateEmbauche]);
         return redirect('home/utilisateurs');
+    }
+
+    private function assignerRole($role, $id)
+    {
+        $user = User::find($id);
+        switch ($role) {
+            case 'visiteurMedicaux':
+                $user->assignRole($role);
+                $visiteurMedicaux = new VisiteurMedicaux();
+                $visiteurMedicaux->id = $id;
+                $visiteurMedicaux->save();
+                break;
+            
+            default:
+                $user->assignRole($role);
+                break;
+        }
     }
 }
