@@ -366,7 +366,6 @@ INSERT INTO `regions` (`id`, `nomRegion`, `budgetGlobalAnnuel`, `utilisateurs_id
 DROP TABLE IF EXISTS `responsables`;
 CREATE TABLE IF NOT EXISTS `responsables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `budgetAnnuel` decimal(13,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

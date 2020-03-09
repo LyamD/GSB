@@ -44,7 +44,7 @@
                                     @csrf
                                     @method('PUT')
                                     @php
-                                        $users = App\User::role("respRegion")->get();
+                                        $users = App\User::role("responsable")->get();
                                     @endphp
                                     <select name="utilisateurs_id" class="form-control">
                                         @foreach ($users as $user)

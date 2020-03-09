@@ -9,8 +9,8 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4>Région : {{}}</h4>
-                        <p>Budget global annuel attribué à cette région : {{}}€</p>
+                        <h4>Région : </h4>
+                        <p>Budget global annuel attribué à cette région : €</p>
                     </div>
                 </div>
 
