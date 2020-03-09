@@ -324,14 +324,6 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 -- Déchargement des données de la table `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(14, 'controler-region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(15, 'changer_employee_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(13, 'changer_budget_region_all', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(12, 'changer_budget_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(11, 'acceder_region', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(16, 'gerer_visite', 'web', '2020-03-01 15:40:41', '2020-03-01 15:40:41'),
-(17, 'gererVisiteur', 'web', '2020-03-01 16:00:57', '2020-03-01 16:00:57');
 
 -- --------------------------------------------------------
 
@@ -389,13 +381,6 @@ CREATE TABLE IF NOT EXISTS `roles` (
 -- Déchargement des données de la table `roles`
 --
 
-INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(9, 'respRegion', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(8, 'employe', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(7, 'superAdmin', 'web', '2020-02-23 19:46:26', '2020-02-23 19:46:26'),
-(10, 'indefini', 'web', '2020-02-23 19:51:45', '2020-02-23 19:51:45'),
-(11, 'visiteurMedicaux', 'web', '2020-03-01 15:40:41', '2020-03-01 15:40:41'),
-(12, 'respVisiteur', 'web', '2020-03-01 16:00:57', '2020-03-01 16:00:57');
 
 -- --------------------------------------------------------
 
@@ -415,17 +400,6 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
 -- Déchargement des données de la table `role_has_permissions`
 --
 
-INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
-(11, 7),
-(11, 8),
-(11, 9),
-(12, 7),
-(12, 9),
-(13, 7),
-(14, 7),
-(15, 7),
-(16, 11),
-(17, 12);
 
 -- --------------------------------------------------------
 
