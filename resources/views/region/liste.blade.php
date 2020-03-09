@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
-                        @php
-                        $user = Auth::user();
-                        @endphp
+                @php
+                $user = Auth::user();
+                @endphp
                 <div class="card-body">
                     <table class="table">
                         <tr>
@@ -82,10 +82,11 @@
                                         <td>{{$employee->pivot->dateDebut}}</td>
                                         <td>{{$employee->pivot->dateFin}}</td>
                                         <td colspan="3">
-                                            @if (($user->id == $rep[0]->id && 
-                                            $user->hasPermissionTo('changer_employee_region')) || $user->hasRole('superAdmin'))
-                                                @if ($employee->isInRegion($i->id))
-                                                <form method="POST"
+                                            @if (($user->id == $rep[0]->id &&
+                                            $user->hasPermissionTo('changer_employee_region')) ||
+                                            $user->hasRole('superAdmin'))
+                                            @if ($employee->isInRegion($i->id))
+                                            <form method="POST"
                                                 action="{{ route('regions.employeeFinPassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
                                                 @csrf
                                                 @method('PUT')
@@ -103,8 +104,8 @@
                                                     {{ __('Terminer passage') }}
                                                 </button>
                                             </form>
-                                                @else
-                                                <form method="POST"
+                                            @else
+                                            <form method="POST"
                                                 action="{{ route('regions.employeeDeletePassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
                                                 @csrf
                                                 @method('DELETE')
@@ -112,49 +113,50 @@
                                                     {{ __('Supprimer passage') }}
                                                 </button>
                                             </form>
-                                                @endif
+                                            @endif
                                             @endif
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @if ($user->id == $rep[0]->id && 
-                                    $user->hasPermissionTo('changer_employee_region') || $user->hasRole('superAdmin'))
+                                    @if (($user->id == $rep[0]->id &&
+                                    $user->hasPermissionTo('changer_employee_region')) || $user->hasRole('superAdmin'))
                                     <tr>
                                         <td colspan="5">
                                             <form method="POST"
-                                            action="{{ route('regions.employeeDebutPassage', $i['id']) }}">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    @php
-                                                $users = App\User::role("employe")->get();
-                                                @endphp
-                                                <select name="user_id" class="form-control">
-                                                    @foreach ($users as $user)
-                                                    <option value="{{$user['id']}}">{{$user['nom']}}</option>
-                                                    @endforeach
-                                                </select>
-                                                </div>
-                                                <div class="col-4">
-                                                    <input id="dateDebut" type="date"
-                                                    class="form-control @error('dateDebut') is-invalid @enderror"
-                                                    name="dateDebut" value="{{ old('dateDebut') }}" required autofocus>
+                                                action="{{ route('regions.employeeDebutPassage', $i['id']) }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        @php
+                                                        $employees = App\User::role("employe")->get();
+                                                        @endphp
+                                                        <select name="user_id" class="form-control">
+                                                            @foreach ($employees as $employee)
+                                                            <option value="{{$employee['id']}}">{{$employee['nom']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <input id="dateDebut" type="date"
+                                                            class="form-control @error('dateDebut') is-invalid @enderror"
+                                                            name="dateDebut" value="{{ old('dateDebut') }}" required
+                                                            autofocus>
 
-                                                @error('dateDebut')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
+                                                        @error('dateDebut')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button type="submit" value="Submit" class="btn btn-primary">
+                                                            {{ __('Ajouter passage') }}
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="col-4">
-                                                    <button type="submit" value="Submit" class="btn btn-primary">
-                                                        {{ __('Ajouter passage') }}
-                                                    </button>
-                                                </div>
-                                            </div>
                                             </form>
-                                            </td>
+                                        </td>
                                     </tr>
                                     @endif
                                 </table>

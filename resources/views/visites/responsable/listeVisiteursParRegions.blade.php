@@ -7,14 +7,18 @@
             <div class="card">
                 <div class="card-header">Régions dont je suis responsable</div>
 
+                {{-- {{var_dump($regions)}} --}}
+
+                @foreach ($regions as $region)
+                    
                 <div class="card">
                     <div class="card-header">
-                        <h4>Région : </h4>
-                        <p>Budget global annuel attribué à cette région : €</p>
+                    <h4>Région : {{$region['nomRegion']}}</h4>
+                        <p>Budget global annuel attribué à cette région : {{$region['budgetGlobalAnnuel']}} €</p>
                     </div>
                     
                     <div class="card-body">
-
+                        
                         <table class="table">
                             <tr>
                                 <th>Nom - Prénom</th>
@@ -25,10 +29,11 @@
                                 <th colspan="2">Action</th>
                             </tr>  
                         </table>
-
+                        
                     </div>
-
+                    
                 </div>
+                @endforeach
 
                 
             </div>

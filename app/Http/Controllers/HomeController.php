@@ -43,9 +43,8 @@ class HomeController extends Controller
 
         // $superAdmin->syncPermissions(Permission::all()->pluck('name'));
         // $employe->givePermissionTo($perm1);
-        // $responsable->syncPermissions([$perm1, $perm2, $perm7]);
+        // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5]);
         // $visiteurMedicaux->givePermissionTo($perm6);
-
 
         // $user = Auth::user();
         // $user->assignRole($superAdmin);
