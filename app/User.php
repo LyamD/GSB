@@ -43,25 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function dirige()
-    {
-        return $this->hasMany('App\Region', 'utilisateurs_id');
-    }
-
     public function regions()
     {
         return $this->belongsToMany('App\Region', 'estpasser', 'utilisateurs_id', 'regions_id')->withPivot('dateDebut', 'dateFin');
     }
 
-    public function visiteurMedicaux()
-    {
-        if ($this->hasRole('visiteurMedicaux')) {
-            return $this->hasOne('App\VisiteurMedicaux', 'id');
-        } else {
-            return null;
-        }
-    }
-
+    
     public function isInRegion($id)
     {
         $region = $this->regions()->find($id);
@@ -72,4 +59,41 @@ class User extends Authenticatable
         }
         
     }
+
+    public function dirige()
+    {
+        if ($this->hasRole('responsable')) {
+            return $this->hasMany('App\Region', 'utilisateurs_id');
+        } else {
+            return null;
+        }
+        
+    }
+
+    //Liens avec les roles
+
+    public function visiteurMedicaux()
+    {
+        if ($this->hasRole('visiteurMedicaux')) {
+            return getVisiteurMed();
+        } else {
+            return null;
+        }
+    }
+
+    private function getVisiteurMed() {
+        return $this->hasOne('App\VisiteurMedicaux', 'id');
+    }
+
+    public function responsable()
+    {
+        if ($this->hasRole('responsable')) {
+            return getVisiteurMed()->responsable();
+        } else {
+            return null;
+        }
+    }
+
+    // ----
+
 }

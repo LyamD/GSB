@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class VisiteurMedicauxController extends Controller
 {
@@ -15,8 +15,9 @@ class VisiteurMedicauxController extends Controller
 
     public function index() {
 
-        $visiteurs = User::role('visiteurMedicaux')->get();
-        return view('visites.responsable.listeVisiteurs')->with('visiteurs', $visiteurs);
+        $user = Auth::user();
+        $regions = $user->dirige();
+        return view('visites.responsable.listeVisiteursParRegions')->with('regions', $regions);
     }
 
     public function show($id)

@@ -17,6 +17,8 @@ class VisiteurMedicaux extends Model
         'budget',
     ];
 
+    //Liens avec les roles
+
     public function employe()
     {
         return $this->belongsTo('App\User', 'id');
@@ -24,10 +26,12 @@ class VisiteurMedicaux extends Model
 
     public function responsable()
     {
-        if ($this->hasRole('respVisiteur')) {
-            return $this->hasOne('App\RespVisiteur', 'id');
+        if ($this->hasRole('responsable')) {
+            return $this->hasOne('App\Responsables', 'id');
         } else {
             return null;
         }
     }
+
+    // ----
 }

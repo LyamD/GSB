@@ -10,8 +10,16 @@ class Responsables extends Model
 
     public $timestamps = false;
 
+    //Liens avec les roles
+
     public function visiteur()
     {
         return $this->belongsTo('App\VisiteurMedicaux', 'id');
     }
+
+    public function user() {
+        return visiteur()->employe();
+    }
+
+    //----
 }
