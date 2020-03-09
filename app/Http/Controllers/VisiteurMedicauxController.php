@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Region;
 use Illuminate\Support\Facades\Auth;
 
 class VisiteurMedicauxController extends Controller
@@ -16,7 +17,12 @@ class VisiteurMedicauxController extends Controller
     public function index() {
 
         $user = Auth::user();
-        $regions = $user->dirige();
+        if ($user->hasRole('superAdmin')) {
+            $regions = Region::all();
+        } else {
+            $regions = $user->dirige()->get();
+        }
+        
         return view('visites.responsable.listeVisiteursParRegions')->with('regions', $regions);
     }
 

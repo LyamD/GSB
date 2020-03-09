@@ -48,17 +48,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Region', 'estpasser', 'utilisateurs_id', 'regions_id')->withPivot('dateDebut', 'dateFin');
     }
 
-    
-    public function isInRegion($id)
-    {
-        $region = $this->regions()->find($id);
-        if (empty($region->pivot->dateFin)) {
-            return true;
-        } else {
-            return false;
-        }
-        
-    }
 
     public function dirige()
     {

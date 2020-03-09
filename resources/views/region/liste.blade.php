@@ -9,6 +9,8 @@
 
                 @php
                 $user = Auth::user();
+                use App\Passage;
+                use App\User;
                 @endphp
                 <div class="card-body">
                     <table class="table">
@@ -58,11 +60,11 @@
 
                         </tr>
                         @php
-                        $employees = $i->employee()->get();
+                        $passages = Passage::where('regions_id', $i->id)->orderBy('utilisateurs_id')->get();
                         @endphp
                         <tr>
                             <td colspan="5">
-                                <h6 class="mt-2">Employé qui sont passé dans cette région</h6>
+                                <h6 class="mt-2">Passage des employés dans cette région</h6>
                                 <table class="mb-5">
                                     <tr>
                                         <th>Nom</th>
@@ -71,21 +73,24 @@
                                         <th>Date Fin</th>
                                         <th colspan="3">Action</th>
                                     </tr>
-                                    @foreach ($employees as $employee)
-                                    @if ($employee->isInRegion($i->id))
+                                    @foreach ($passages as $passage)
+                                    @php
+                                        $employee = User::find($passage->utilisateurs_id)
+                                    @endphp
+                                    @if ($passage->dateFin == null)
                                     <tr class="table-info">
                                         @else
                                     <tr>
                                         @endif
                                         <td>{{$employee['prenom']}}</td>
                                         <td>{{$employee['nom']}}</td>
-                                        <td>{{$employee->pivot->dateDebut}}</td>
-                                        <td>{{$employee->pivot->dateFin}}</td>
+                                        <td>{{$passage->dateDebut}}</td>
+                                        <td>{{$passage->dateFin}}</td>
                                         <td colspan="3">
                                             @if (($user->id == $rep[0]->id &&
                                             $user->hasPermissionTo('changer_employee_region')) ||
                                             $user->hasRole('superAdmin'))
-                                            @if ($employee->isInRegion($i->id))
+                                            @if ($passage->dateFin == null)
                                             <form method="POST"
                                                 action="{{ route('regions.employeeFinPassage', [ 'id' => $i['id'], 'idEmployee' => $employee['id'] ]) }}">
                                                 @csrf
