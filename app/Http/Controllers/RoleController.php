@@ -19,13 +19,15 @@ class RoleController extends Controller
         } else {
             $this->assignerRole($request->role, $id);
         }
-        return redirect('home/utilisateurs');
+        //return redirect('home/utilisateurs');
+        return back()->withInput();
     }
 
     public function genererMatricule(Request $request, $id)
     {
         DB::statement('call generer_matricule(?,?)', [$id, $request->dateEmbauche]);
-        return redirect('home/utilisateurs');
+        //return redirect('home/utilisateurs');
+        return back()->withInput();
     }
 
     private function assignerRole($role, $id)

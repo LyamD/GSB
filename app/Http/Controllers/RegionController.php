@@ -65,7 +65,9 @@ class RegionController extends Controller
         }
 
         $region->save();
-        return redirect('home/regions/liste');
+
+        //return redirect('home/regions/liste');
+        return back()->withInput();
     }
 
     /**
@@ -83,20 +85,23 @@ class RegionController extends Controller
     {
         $region = Region::find($id);
         $region->employee()->updateExistingPivot($idEmployee, ['dateFin' => $request->dateFin]);
-        return redirect('home/regions/liste');
+        //return redirect('home/regions/liste');
+        return back()->withInput();
     }
 
     public function employeeDebutPassage(Request $request, $id)
     {
         $region = Region::find($id);
         $region->employee()->attach($request->user_id, ['dateDebut' => $request->dateDebut]);
-        return redirect('home/regions/liste');
+        //return redirect('home/regions/liste');
+        return back()->withInput();
     }
 
     public function employeeDeletePassage($id, $idEmployee)
     {
         $region = Region::find($id);
         $region->employee()->detach($idEmployee);
-        return redirect('home/regions/liste');
+        //return redirect('home/regions/liste');
+        return back()->withInput();
     }
 }
