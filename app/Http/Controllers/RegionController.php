@@ -27,7 +27,7 @@ class RegionController extends Controller
             $regions = Region::all();
             return view('region.listeStructure')->with('regions', $regions);
         } else {
-            return view('custom.permissionRefusee');
+            abort(403, "Permission refusée");
         }
     }
 

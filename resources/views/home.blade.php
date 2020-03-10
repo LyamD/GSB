@@ -32,11 +32,31 @@
                         Accéder au budget de toutes les régions
                     @endcan
 
-                    @can('controler-region')
+                    @can('controler_region')
                         <a href="{{ action('RegionController@index') }}" class="btn btn-dark">
                             Editer les régions
                         </a>
                     @endcan
+
+                    @can('gerer_utilisateurs')
+                    <a href="{{ route('utilisateurs.liste') }}" class="btn btn-dark">
+                        Gérer les utilisateurs
+                    </a>
+                    @endcan
+
+                    @can('gerer_visiteurs')
+                    <a href="{{  action('VisiteurMedicauxController@index') }}" class="btn btn-dark">
+                        Gérer les visiteurs
+                    </a>
+                    @endcan
+
+                    @can('gerer_visite')
+                    <a href="{{  action('VisiteurMedicauxController@index') }}" class="btn btn-dark">
+                        Gérer mes visites
+                    </a>
+                    @endcan
+
+
                     </p>
                 </div>
             </div>

@@ -26,11 +26,11 @@ Route::resource('home/regions', 'RegionController')->only(
 
 Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
     ['show']
-)->middleware(['role:visiteurMedicaux']);
+)->middleware(['permission:gerer_visite']);
 
 Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
     ['index']
-)->middleware(['role:responsable']);
+)->middleware(['permission:gerer_visiteur']);
 
 // ---- resources 'manuelle'
 
@@ -42,11 +42,11 @@ Route::get('home/utilisateurs',function()
 {
     $users = App\User::all();
         return view('admin.listeUser')->with('users', $users);
-})->middleware(['role:superAdmin'])->name('utilisateurs.liste');
+})->middleware(['permission:gerer_utilisateurs'])->name('utilisateurs.liste');
 
 //employées
 Route::put('home/utilisateurs/genererMatricule/{id}', 'RoleController@genererMatricule')
-    ->middleware(['role:superAdmin'])->name('utilisateurs.genererMatricule');
+    ->middleware(['permission:gerer_utilisateurs'])->name('utilisateurs.genererMatricule');
 
 // Regions
 Route::get('home/regions/liste', function()
