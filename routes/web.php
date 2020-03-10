@@ -26,7 +26,11 @@ Route::resource('home/regions', 'RegionController')->only(
 
 Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
     ['show']
-);
+)->middleware(['role:visiteurMedicaux']);
+
+Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
+    ['index']
+)->middleware(['role:responsable']);
 
 // ---- resources 'manuelle'
 

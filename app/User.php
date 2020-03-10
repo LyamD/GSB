@@ -43,33 +43,48 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function dirige()
-    {
-        return $this->hasMany('App\Region', 'utilisateurs_id');
-    }
-
     public function regions()
     {
         return $this->belongsToMany('App\Region', 'estpasser', 'utilisateurs_id', 'regions_id')->withPivot('dateDebut', 'dateFin');
     }
 
+
+    public function dirige()
+    {
+        if ($this->hasRole('responsable')) {
+            return $this->hasMany('App\Region', 'utilisateurs_id');
+        } else {
+            return null;
+        }
+        
+    }
+
+    //Liens avec les roles
+
     public function visiteurMedicaux()
     {
+        
         if ($this->hasRole('visiteurMedicaux')) {
-            return $this->hasOne('App\VisiteurMedicaux', 'id');
+            return $this->getVisiteurMed();
         } else {
             return null;
         }
     }
 
-    public function isInRegion($id)
-    {
-        $region = $this->regions()->find($id);
-        if (empty($region->pivot->dateFin)) {
-            return true;
-        } else {
-            return false;
-        }
-        
+    private function getVisiteurMed() {
+        // TODO : fixer ce hasOne qui marche pas
+        return $this->hasOne('App\VisiteurMedicaux', 'id', 'id');
     }
+
+    public function responsable()
+    {
+        if ($this->hasRole('responsable')) {
+            return $this->getVisiteurMed()->responsable();
+        } else {
+            return null;
+        }
+    }
+
+    // ----
+
 }

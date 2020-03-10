@@ -29,10 +29,9 @@ class HomeController extends Controller
 
         // $superAdmin = Role::create(['name' => 'superAdmin']);
         // $employe = Role::create(['name' => 'employe']);
-        // $respRegion = Role::create(['name' => 'respRegion']);
+        // $responsable = Role::create(['name' => 'responsable']);
         // $indefini = Role::create(['name' => 'indefini']);
         // $visiteurMedicaux = Role::create(['name' => 'visiteurMedicaux']);
-        // $respVisiteur = Role::create(['name' => 'respVisiteur']);
 
         // $perm1 = Permission::create(['name' => 'acceder_region']);
         // $perm2 = Permission::create(['name' => 'changer_budget_region']);
@@ -44,10 +43,8 @@ class HomeController extends Controller
 
         // $superAdmin->syncPermissions(Permission::all()->pluck('name'));
         // $employe->givePermissionTo($perm1);
-        // $respRegion->syncPermissions([$perm1, $perm2]);
+        // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5]);
         // $visiteurMedicaux->givePermissionTo($perm6);
-        // $respVisiteur->givePermissionTo($perm7);
-
 
         // $user = Auth::user();
         // $user->assignRole($superAdmin);
