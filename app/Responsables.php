@@ -10,6 +10,10 @@ class Responsables extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'id'
+    ];
+
     //Liens avec les roles
 
     public function visiteur()

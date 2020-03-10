@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\VisiteurMedicaux;
+use App\Responsables;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
@@ -33,11 +34,24 @@ class RoleController extends Controller
         switch ($role) {
             case 'visiteurMedicaux':
                 $user->assignRole($role);
-                $visiteurMedicaux = new VisiteurMedicaux();
+                $visiteurMedicaux = VisiteurMedicaux::firstOrCreate(['id' => $id]);
                 $visiteurMedicaux->id = $id;
+
+                $visiteurMedicaux->objectif = "Non défini";
+                $visiteurMedicaux->prime = 0;
+                $visiteurMedicaux->avantages = "Aucun";
+                $visiteurMedicaux->budget = 0;
+
                 $visiteurMedicaux->save();
                 break;
             
+            case 'responsable' :
+                $user->assignRole($role);
+                $responsable = Responsables::firstOrCreate(['id' => $id]);
+                $responsable->id = $id;
+                $responsable->save();
+                break;
+
             default:
                 $user->assignRole($role);
                 break;
