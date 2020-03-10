@@ -50,11 +50,34 @@
                     </a>
                     @endcan
 
-                    @can('gerer_visite')
-                    <a href="{{  action('VisiteurMedicauxController@index') }}" class="btn btn-dark">
+                    @can('gerer_visiteurs')
+                    {{-- <a href="{{  action('VisiteurMedicauxController@') }}" class="btn btn-dark">
                         Gérer mes visites
-                    </a>
+                    </a> --}}
                     @endcan
+
+                    @php
+                        use App\VisiteurMedicaux;
+                        $visiteur = VisiteurMedicaux::find(2);
+                    @endphp
+
+                    <form method="POST" action="{{ action('VisiteurMedicauxController@update', $visiteur['id']) }}">
+                        @csrf
+                        @method('PUT')
+                        <input id="budget" type="number"
+                            class="form-control @error('budget') is-invalid @enderror"
+                            name="budget" value="{{ $visiteur['budget'] }}" required
+                            autofocus>
+
+                        @error('budget')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Valider') }}
+                        </button>
+                    </form>
 
 
                     </p>

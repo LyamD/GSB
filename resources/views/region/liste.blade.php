@@ -14,12 +14,14 @@
                 @endphp
                 <div class="card-body">
                     <table class="table">
-                        <tr>
-                            <th>Nom Région</th>
-                            <th>Budget golbal annuel</th>
-                            <th>Responsable région actuel</th>
-                            <th colspan="2">Action</th>
-                        </tr>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Nom Région</th>
+                                <th>Budget golbal annuel</th>
+                                <th>Responsable région actuel</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                        </thead>
                         @foreach ($regions as $i)
                         @php
                         $rep = $i->responsable()->get();
@@ -66,13 +68,15 @@
                             <td colspan="5">
                                 <h6 class="mt-2">Passage des employés dans cette région</h6>
                                 <table class="mb-5">
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Date Début</th>
-                                        <th>Date Fin</th>
-                                        <th colspan="3">Action</th>
-                                    </tr>
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Date Début</th>
+                                            <th>Date Fin</th>
+                                            <th colspan="3">Action</th>
+                                        </tr>
+                                    </thead>
                                     @foreach ($passages as $passage)
                                     @php
                                         $employee = User::find($passage->utilisateurs_id)
