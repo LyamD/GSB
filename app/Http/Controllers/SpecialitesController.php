@@ -27,6 +27,8 @@ class SpecialitesController extends Controller
         $specialites = new Specialites();
         $specialites->nomSpecialite = $request->nomSpecialite;
         $specialites->save();
+
+        return back()->withInput();
     }
 
     
