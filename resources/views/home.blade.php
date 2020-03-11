@@ -78,6 +78,11 @@
                             {{ __('Valider') }}
                         </button>
                     </form>
+                    @can('gerer_specialites')
+                    <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
+                        Liste des specialites
+                    </a>
+                    @endcan
 
 
                     </p>

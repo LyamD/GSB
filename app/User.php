@@ -87,4 +87,11 @@ class User extends Authenticatable
 
     // ----
 
+    public function specialites()
+    {
+        return $this->belongsToMany('App\Specialites', 'specialise', 'utilisateurs_id', 'specialites_id')->withPivot('diplome', 'coefPrescription');
+    }
+
+
+
 }

@@ -32,6 +32,7 @@ class HomeController extends Controller
         // $responsable = Role::create(['name' => 'responsable']);
         // $indefini = Role::create(['name' => 'indefini']);
         // $visiteurMedicaux = Role::create(['name' => 'visiteurMedicaux']);
+        // $practicien = Role::create(['name' => 'practicien']);
 
         // $perm1 = Permission::create(['name' => 'acceder_region']);
         // $perm2 = Permission::create(['name' => 'changer_budget_region']);
@@ -41,11 +42,15 @@ class HomeController extends Controller
         // $perm6 = Permission::create(['name' => 'gerer_visite']);
         // $perm7 = Permission::create(['name' => 'gerer_visiteur']);
         // $perm8 = Permission::create(['name' => 'gerer_utilisateurs']);
+        // $perm9 = Permission::create(['name' => 'gerer_specialites']);
+        // $perm10 = Permission::create(['name' => 'attribuer_specialites']);
 
+        // $superAdmin = Role::findByName('superAdmin');
+        // $responsable = Role::findByName('responsable');
         
         // $superAdmin->syncPermissions(Permission::all()->pluck('name'));
         // $employe->givePermissionTo($perm1);
-        // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5]);
+        // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5, $perm9, $perm10]);
         // $visiteurMedicaux->givePermissionTo($perm6);
 
         // $user = Auth::user();
