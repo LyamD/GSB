@@ -10,12 +10,12 @@ class Specialites extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
+    protected $fillnomSpecialiteable = [
         'nomSpecialite'
     ];
 
     public function practiciens(Type $var = null)
     {
-        return $this->belongsToMany('App\User', 'specialise', 'specialites_id', 'utilisateurs_id');
+        return $this->belongsToMany('App\User', 'specialise', 'specialites_id', 'utilisateurs_id')->withPivot('diplome', 'coefPrescription');
     }
 }

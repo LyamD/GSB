@@ -32,6 +32,7 @@ class HomeController extends Controller
         // $responsable = Role::create(['name' => 'responsable']);
         // $indefini = Role::create(['name' => 'indefini']);
         // $visiteurMedicaux = Role::create(['name' => 'visiteurMedicaux']);
+        // $practicien = Role::create(['name' => 'practicien']);
 
         // $perm1 = Permission::create(['name' => 'acceder_region']);
         // $perm2 = Permission::create(['name' => 'changer_budget_region']);
