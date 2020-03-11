@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Specialites;
 use Illuminate\Http\Request;
+use App\User;
 
 class SpecialitesController extends Controller
 {
@@ -17,7 +18,7 @@ class SpecialitesController extends Controller
     public function index()
     {
         $specialites = Specialites::all();
-        return view('')->with('specialites', $specialites);
+        return view('specialites.liste')->with('specialites', $specialites);
     }
 
 
@@ -34,7 +35,6 @@ class SpecialitesController extends Controller
         $specialites->nomSpecialite = $request->nomSpecialite;
         $specialites->save();
     }
-
 
     public function destroy(Specialites $specialites)
     {

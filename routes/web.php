@@ -24,6 +24,7 @@ Route::resource('home/regions', 'RegionController')->only(
     ['index', 'store', 'update', 'destroy']
 );
 
+//VisiteurMedicauxController
 Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
     ['show']
 )->middleware(['permission:gerer_visite']);
@@ -31,6 +32,12 @@ Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
 Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
     ['index']
 )->middleware(['permission:gerer_visiteur']);
+
+//SpecialitesController
+
+Route::resource('home/practiciens/specialites', 'SpecialitesController')->only(
+    ['index', 'store', 'update', 'destroy']
+)->middleware(['permission:gerer_specialites']);
 
 // ---- resources 'manuelle'
 
