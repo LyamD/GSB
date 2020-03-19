@@ -32,14 +32,19 @@ class SpecialitesController extends Controller
     }
 
     
-    public function update(Request $request, Specialites $specialites)
+    public function update(Request $request, $id)
     {
+        $specialites = Specialites::find($id);
         $specialites->nomSpecialite = $request->nomSpecialite;
         $specialites->save();
+
+        return back()->withInput();
     }
 
-    public function destroy(Specialites $specialites)
+    public function destroy($id)
     {
-        $specialites->destroy();
+        $specialites = Specialites::find($id);
+        $specialites->delete();
+        return back()->withInput();
     }
 }
