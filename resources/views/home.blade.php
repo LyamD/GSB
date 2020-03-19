@@ -50,12 +50,12 @@
                     </a>
                     @endcan
 
-                    @can('gerer_visiteurs')
+                    @can('gerer_visite')
                     {{-- <a href="{{  action('VisiteurMedicauxController@') }}" class="btn btn-dark">
                         Gérer mes visites
                     </a> --}}
                     @endcan
-
+{{-- 
                     @php
                         use App\VisiteurMedicaux;
                         $visiteur = VisiteurMedicaux::find(2);
@@ -77,18 +77,19 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Valider') }}
                         </button>
-                    </form>
-                    @can('gerer_specialites')
-                    <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
-                        Liste des specialites
-                    </a>
-                    @endcan
+                    </form> --}}
 
                     @can('gerer_specialites')
                     <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
                         Liste des specialites
                     </a>
                     @endcan
+
+                    {{-- @can('gerer_specialites')
+                    <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
+                        Liste des specialites
+                    </a>
+                    @endcan --}}
 
 
                     </p>

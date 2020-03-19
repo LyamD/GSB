@@ -30,7 +30,7 @@ Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
 )->middleware(['permission:gerer_visite']);
 
 Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
-    ['index']
+    ['index', 'update', 'edit']
 )->middleware(['permission:gerer_visiteur']);
 
 //SpecialitesController

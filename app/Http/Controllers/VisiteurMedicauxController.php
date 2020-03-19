@@ -23,7 +23,7 @@ class VisiteurMedicauxController extends Controller
             $regions = $user->dirige()->get();
         }
         
-        return view('visites.visiteurs.listeVisiteursParRegions')->with('regions', $regions);
+        return view('visiteurs.listeParRegions')->with('regions', $regions);
     }
 
     public function store(Request $request)
@@ -34,14 +34,14 @@ class VisiteurMedicauxController extends Controller
     public function show($id)
     {
 
-        $visiteur = VisiteurMedicaux::find($id);
-
-        return view("visites.visiteurs.visiteur")->with('visiteur', $visiteur);
+        
     }
 
     public function edit($id)
     {
-        //
+        $visiteur = VisiteurMedicaux::find($id);
+
+        return view("visiteurs.edit")->with('visiteur', $visiteur);
     }
 
     public function update(Request $request,  $id)
