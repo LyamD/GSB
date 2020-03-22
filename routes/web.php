@@ -25,11 +25,11 @@ Route::resource('home/regions', 'RegionController')->only(
 );
 
 //VisiteurMedicauxController
-Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
+Route::resource('home/utilisateurs/visiteur', 'VisiteurMedicauxController')->only(
     ['show']
 )->middleware(['permission:gerer_visite']);
 
-Route::resource('home/utilisateurs/visite', 'VisiteurMedicauxController')->only(
+Route::resource('home/utilisateurs/visiteur', 'VisiteurMedicauxController')->only(
     ['index', 'update', 'edit']
 )->middleware(['permission:gerer_visiteur']);
 
@@ -54,6 +54,10 @@ Route::get('home/utilisateurs',function()
 //employées
 Route::put('home/utilisateurs/genererMatricule/{id}', 'RoleController@genererMatricule')
     ->middleware(['permission:gerer_utilisateurs'])->name('utilisateurs.genererMatricule');
+
+//Visiteurs Medicaux
+Route::post('home/utilisateurs/visite/updateBudget/{id}', 'VisiteurMedicauxController@updateBudget')
+    ->middleware(['permission:gerer_visiteur'])->name('visiteur.updateBudget');
 
 // Regions
 Route::get('home/regions/liste', function()

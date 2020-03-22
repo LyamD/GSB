@@ -47,9 +47,36 @@ class VisiteurMedicauxController extends Controller
     public function update(Request $request,  $id)
     {
         $visiteur = VisiteurMedicaux::find($id);
-        $visiteur->objectif = empty($request->input('objectif'))  ? $visiteur->objectif : $request->input('objectif');
-        $visiteur->budget = empty($request->input('budget'))  ? $visiteur->budget : $request->input('budget');
+        $visiteur['objectif'] = $request->input('objectif');
+        $visiteur['avantages'] = $request->input('avantages');
+        $visiteur['prime'] = $request->input('prime');
+        //$visiteur['budget'] = empty($request->input('budget'))  ? $visiteur['budget'] : $request->input('budget');
+
+        $visiteur->save();
+        
+        return redirect('home/utilisateurs/visiteur');
+    }
+
+    public function updateBudget(Request $request, $id)
+    {
+        $visiteur = VisiteurMedicaux::find($id);
+        $regID = $visiteur->getRegionActuelle();
+
+        $region = Region::find($regID);
+
+        $newBudgetRegion = ($region['budgetGlobalAnnuel'] - $request->budget);
+
+        if ($newBudgetRegion >= 0) {
+            $region['budgetGlobalAnnuel'] = $newBudgetRegion;
+            $region->save();
+            $visiteur['budget'] += $request->budget;
+            $visiteur->save();
+
+        } else {
+            
+        }
 
         return back()->withInput();
+
     }
 }

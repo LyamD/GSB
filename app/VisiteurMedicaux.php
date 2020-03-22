@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Passage;
 
 class VisiteurMedicaux extends Model
 {
@@ -31,6 +32,12 @@ class VisiteurMedicaux extends Model
         } else {
             return null;
         }
+    }
+
+    public function getRegionActuelle()
+    {
+        $passage = Passage::where([ 'utilisateurs_id' => $this['id'], 'dateFin' => null ])->first();
+        return $passage['regions_id'];
     }
 
     // ----

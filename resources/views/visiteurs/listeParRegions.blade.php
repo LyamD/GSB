@@ -62,15 +62,17 @@
                             </tr>
 
                             <tr>
-                                <th>Modifier le budget</th>
+                                <th><p>Ajouter au budget <br> 
+                                    <span class="text-muted">Insérez une valeur négative pour retirer du budget</span></p>
+                                </th>
                                 <td colspan="3">
-                                    <form method="POST" action="{{ action('VisiteurMedicauxController@update', $employe->id) }}">
+                                    <form method="POST" action="{{ route('visiteur.updateBudget', $employe->id) }}">
                                         @csrf
-                                        @method('PUT')
+                                        @method('POST')
                                         <input id="budget" type="number"
                                             class="form-control @error('budget') is-invalid @enderror"
-                                            name="budget" value="{{ $visiteur['budget'] }}" required
-                                            autofocus>
+                                            name="budget" required
+                                            >
     
                                         @error('budget')
                                         <span class="invalid-feedback" role="alert">
