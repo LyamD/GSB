@@ -44,13 +44,13 @@ class HomeController extends Controller
         // $perm8 = Permission::create(['name' => 'gerer_utilisateurs']);
         // $perm9 = Permission::create(['name' => 'gerer_specialites']);
         // $perm10 = Permission::create(['name' => 'attribuer_specialites']);
+        // $perm11 = Permission::create(['name' => 'gerer_medicaments']);
 
         // $superAdmin = Role::findByName('superAdmin');
         // $responsable = Role::findByName('responsable');
-        
         // $superAdmin->syncPermissions(Permission::all()->pluck('name'));
         // $employe->givePermissionTo($perm1);
-        // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5, $perm9, $perm10]);
+        // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5, $perm9, $perm10, $perm11]);
         // $visiteurMedicaux->givePermissionTo($perm6);
 
         // $user = Auth::user();

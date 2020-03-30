@@ -19,10 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//resources
+// ----- resources
+
+//RegionController
 Route::resource('home/regions', 'RegionController')->only(
     ['index', 'store', 'update', 'destroy']
 );
+
 
 //VisiteurMedicauxController
 Route::resource('home/utilisateurs/visiteur', 'VisiteurMedicauxController')->only(
@@ -33,13 +36,23 @@ Route::resource('home/utilisateurs/visiteur', 'VisiteurMedicauxController')->onl
     ['index', 'update', 'edit']
 )->middleware(['permission:gerer_visiteur']);
 
-//SpecialitesController
 
+//SpecialitesController
 Route::resource('home/practiciens/specialites', 'SpecialitesController')->only(
     ['index', 'store', 'update', 'destroy']
 )->middleware(['permission:gerer_specialites']);
 
+
+//MedicamentsController
+Route::resource('home/medicaments', 'MedicamentsController')->only(
+    ['index', 'show', 'store', 'update', 'destroy']
+)->middleware(['permission:gerer_medicaments']);
+
+Route::resource('home/medicaments/famille/medicaments', 'FamilleMedicamentController')->only(
+    ['index', 'store', 'update', 'destroy']
+)->middleware(['permission:gerer_medicaments']);
 // ---- resources 'manuelle'
+
 
 //Utilisateurs
 Route::get('home/utilisateurs/{id}/changerRole', 'RoleController@changerRole')
@@ -51,13 +64,16 @@ Route::get('home/utilisateurs',function()
         return view('admin.listeUser')->with('users', $users);
 })->middleware(['permission:gerer_utilisateurs'])->name('utilisateurs.liste');
 
+
 //employées
 Route::put('home/utilisateurs/genererMatricule/{id}', 'RoleController@genererMatricule')
     ->middleware(['permission:gerer_utilisateurs'])->name('utilisateurs.genererMatricule');
 
+
 //Visiteurs Medicaux
 Route::post('home/utilisateurs/visite/updateBudget/{id}', 'VisiteurMedicauxController@updateBudget')
     ->middleware(['permission:gerer_visiteur'])->name('visiteur.updateBudget');
+
 
 // Regions
 Route::get('home/regions/liste', function()

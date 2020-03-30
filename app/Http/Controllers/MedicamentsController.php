@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Medicaments\Medicaments;
+use App\Medicaments;
+use App\FamilleMed;
 use Illuminate\Http\Request;
 
 class MedicamentsController extends Controller
@@ -14,7 +15,9 @@ class MedicamentsController extends Controller
      */
     public function index()
     {
-        //
+        $medicaments = Medicaments::all();
+
+        return view('medicaments.liste')->with('medicaments', $medicaments);
     }
 
     /**
@@ -41,7 +44,7 @@ class MedicamentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Medicaments\Medicaments  $medicaments
+     * @param  \App\Medicaments  $medicaments
      * @return \Illuminate\Http\Response
      */
     public function show(Medicaments $medicaments)
@@ -52,7 +55,7 @@ class MedicamentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Medicaments\Medicaments  $medicaments
+     * @param  \App\Medicaments  $medicaments
      * @return \Illuminate\Http\Response
      */
     public function edit(Medicaments $medicaments)
@@ -64,7 +67,7 @@ class MedicamentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Medicaments\Medicaments  $medicaments
+     * @param  \App\Medicaments  $medicaments
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Medicaments $medicaments)
@@ -75,7 +78,7 @@ class MedicamentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Medicaments\Medicaments  $medicaments
+     * @param  \App\Medicaments  $medicaments
      * @return \Illuminate\Http\Response
      */
     public function destroy(Medicaments $medicaments)

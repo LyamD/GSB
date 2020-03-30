@@ -55,29 +55,7 @@
                         Gérer mes visites
                     </a> --}}
                     @endcan
-{{-- 
-                    @php
-                        use App\VisiteurMedicaux;
-                        $visiteur = VisiteurMedicaux::find(2);
-                    @endphp
 
-                    <form method="POST" action="{{ action('VisiteurMedicauxController@update', $visiteur['id']) }}">
-                        @csrf
-                        @method('PUT')
-                        <input id="budget" type="number"
-                            class="form-control @error('budget') is-invalid @enderror"
-                            name="budget" value="{{ $visiteur['budget'] }}" required
-                            autofocus>
-
-                        @error('budget')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Valider') }}
-                        </button>
-                    </form> --}}
 
                     @can('gerer_specialites')
                     <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
@@ -85,11 +63,17 @@
                     </a>
                     @endcan
 
-                    {{-- @can('gerer_specialites')
-                    <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
-                        Liste des specialites
+                    @can('gerer_medicaments')
+                    <a href="{{  action('MedicamentsController@index') }}" class="btn btn-dark">
+                        Liste des medicaments
                     </a>
-                    @endcan --}}
+                    @endcan
+
+                    @can('gerer_medicaments')
+                    <a href="{{  action('FamilleMedicamentController@index') }}" class="btn btn-dark">
+                        Liste des familles de médicaments
+                    </a>
+                    @endcan
 
 
                     </p>
