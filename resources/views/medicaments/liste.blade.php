@@ -18,12 +18,24 @@
                         </thead>
                         <tbody>
                             @foreach ($medicaments as $med)
+                            @php
+                                $fam = $med->famille;
+                            @endphp
                             <tr>
                             <td>{{$med['numeroProduit']}}</td>
                             <td>{{$med['nomCommercial']}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <td>{{$fam['nomFamille']}}</td>
+
+                                <td><a href="{{ action('MedicamentsController@show', $med['numeroProduit'])}}" class="btn btn-primary">afficher</a></td>
+                                <td>
+                                    <form method="POST" action="{{ action('MedicamentsController@destroy', $med['numeroProduit']) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            {{ __('Supprimer') }}
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
     
                             @endforeach

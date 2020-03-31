@@ -18,4 +18,10 @@ class Medicaments extends Model
         'contreIndications',
         'prixEchantillon',
     ];
+
+    public function famille()
+    {
+        return $this->belongsTo('App\FamilleMed', 'familleMedicament_id');
+    }
+
 }

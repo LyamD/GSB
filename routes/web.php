@@ -49,7 +49,7 @@ Route::resource('home/medicaments', 'MedicamentsController')->only(
 )->middleware(['permission:gerer_medicaments']);
 
 Route::resource('home/medicaments/famille/medicaments', 'FamilleMedicamentController')->only(
-    ['index', 'store', 'update', 'destroy']
+    ['index', 'show', 'edit', 'store', 'update', 'destroy']
 )->middleware(['permission:gerer_medicaments']);
 // ---- resources 'manuelle'
 

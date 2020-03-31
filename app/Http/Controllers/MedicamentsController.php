@@ -47,9 +47,11 @@ class MedicamentsController extends Controller
      * @param  \App\Medicaments  $medicaments
      * @return \Illuminate\Http\Response
      */
-    public function show(Medicaments $medicaments)
+    public function show($id)
     {
-        //
+        $med = Medicaments::find($id);
+
+        return view('medicaments.show')->with('medicament', $med);
     }
 
     /**
@@ -81,8 +83,16 @@ class MedicamentsController extends Controller
      * @param  \App\Medicaments  $medicaments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Medicaments $medicaments)
+    public function destroy($id)
     {
-        //
+        $med = Medicaments::find($id);
+        $med->delete();
+
+        return back();
+    }
+
+    public function ajouterInteraction(Request $request, $id)
+    {
+        # code...
     }
 }

@@ -45,7 +45,12 @@ class FamilleMedicamentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $famille = FamilleMed::find($id);
+
+        $famille['nomFamille'] = $request->input('nomFamille');
+        $famille->save();
+
+        return back()->withInput();
     }
 
     /**
@@ -58,6 +63,6 @@ class FamilleMedicamentController extends Controller
     {
         $famille = FamilleMed::find($id);
         $famille->delete();
-        return back()->withInput();
+        return back();
     }
 }

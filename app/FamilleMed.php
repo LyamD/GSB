@@ -15,6 +15,8 @@ class FamilleMed extends Model
     ];
 
     
-
+    public function medicaments() {
+        return $this->hasMany('App\Medicaments', 'familleMedicament_id', 'id');
+    }
     
 }
