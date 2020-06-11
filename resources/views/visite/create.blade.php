@@ -61,6 +61,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="visiteurMedicaux_id">Visiteurs</label>
+
+                                        @can('gerer_visiteur')
+
                                         <select class="form-control" id="visiteurMedicaux_id"
                                             name="visiteurMedicaux_id">
                                             @foreach ($visiteurs as $vis)
@@ -68,6 +71,13 @@
                                             </option>
                                             @endforeach
                                         </select>
+
+                                        @else
+
+                                        <p>Vous</p>
+                                        <input type="hidden" name="visiteurMedicaux_id" value="{{Auth::id()}}">
+                                        @endcan
+
 
                                     </div>
                                 </div>

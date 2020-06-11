@@ -39,32 +39,29 @@
                     </div>
 
                     <div class="container">
-                        <table class="table">
                             <h4 class="mt-5">Médicaments présenté</h4>
                             <table class="table">
                                 <thead>
                                     <th>Numéro Produit</th>
                                     <th>Nom Commercial</th>
-                                    <th>Interaction</th>
+                                    <th>Nombre d'échantillons offert</th>
+                                    <th>Coût</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($interactions as $item)
-                                    @php
-                                    $medInt = Medicaments::find($item->Produit_id);
-                                    if ($medInt->is($medicament)) {
-                                    $medInt = Medicaments::find($item->Produit_1_id);
-                                    }
-                                    @endphp
-
-                                    <tr>
-                                        <td>{{$medInt['numeroProduit']}}</td>
-                                        <td>{{$medInt['nomCommercial']}}</td>
-                                        <td>{{$item->interaction}}</td>
-                                    </tr>
+                                    @foreach ($medicaments as $med)
+                                        @php
+                                            $nbOffert = $med->pivot->offert;
+                                            $cout = $med['prixEchantillon'] * $nbOffert;
+                                        @endphp
+                                        <tr>
+                                            <td> {{$med['numeroProduit']}} </td>
+                                            <td> {{$med['numeroProduit']}} </td>
+                                            <td> {{$nbOffert}} </td>
+                                            <td> {{$cout}}€ </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </table>
                     </div>
 
                 </div>

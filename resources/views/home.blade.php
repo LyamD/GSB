@@ -44,7 +44,7 @@
                     </a>
                     @endcan
 
-                    @can('gerer_visiteurs')
+                    @can('gerer_visiteur')
                     <a href="{{  action('VisiteurMedicauxController@index') }}" class="btn btn-dark">
                         Gérer les visiteurs
                     </a>

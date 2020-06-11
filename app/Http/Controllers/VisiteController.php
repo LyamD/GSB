@@ -23,8 +23,9 @@ class VisiteController extends Controller
     public function show($id)
     {
         $visite = Visite::find($id);
+        $medicaments = $visite->medicaments()->get();
 
-        return view('visite.show')->with('visite', $visite);
+        return view('visite.show')->with('visite', $visite)->with('medicaments', $medicaments);
     }
 
     public function create()
@@ -54,8 +55,9 @@ class VisiteController extends Controller
         $visite = Visite::find($id);
         $practiciens = User::role('practicien')->get();
         $visiteurs = User::role('visiteurMedicaux')->get();
+        $medicaments = $visite->medicaments()->get();
 
-        return view('visite.edit')->with('visite', $visite)->with('practiciens', $practiciens)->with('visiteurs', $visiteurs);
+        return view('visite.edit')->with('visite', $visite)->with('practiciens', $practiciens)->with('visiteurs', $visiteurs)->with('medicaments', $medicaments);
     }
 
     public function update(Request $request, $id)

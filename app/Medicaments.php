@@ -22,4 +22,9 @@ class Medicaments extends Model
         return $this->belongsTo('App\FamilleMed', 'familleMedicament_id');
     }
 
+    public function visites()
+    {
+        return $this->belongsToMany('App\Visite', 'estpresente', 'medicament_id', 'visite_id')->withPivot('offert');
+    }
+
 }

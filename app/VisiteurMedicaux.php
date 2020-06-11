@@ -34,6 +34,13 @@ class VisiteurMedicaux extends Model
         }
     }
 
+    public function visites()
+    {
+        return $this->hasMany('App\Visite', 'visiteurMedicaux_id');
+    }
+
+    // Gestion Régions
+
     public function getRegionActuelle()
     {
         $passage = Passage::where([ 'utilisateurs_id' => $this['id'], 'dateFin' => null ])->first();

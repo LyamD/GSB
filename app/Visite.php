@@ -18,6 +18,11 @@ class Visite extends Model
 
     public function visiteur()
     {
-        return $this->hasMany('App\VisiteurMedicaux', 'visiteurMedicaux_id');
+        return $this->belongsTo('App\VisiteurMedicaux', 'visiteurMedicaux_id');
+    }
+
+    public function medicaments()
+    {
+        return $this->belongsToMany('App\Medicaments', 'estpresente', 'visite_id', 'medicament_id')->withPivot('offert');
     }
 }

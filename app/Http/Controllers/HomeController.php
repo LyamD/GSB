@@ -48,6 +48,7 @@ class HomeController extends Controller
 
         // $superAdmin = Role::findByName('superAdmin');
         // $responsable = Role::findByName('responsable');
+        
         // $superAdmin->syncPermissions(Permission::all()->pluck('name'));
         // $employe->givePermissionTo($perm1);
         // $responsable->syncPermissions([$perm1, $perm2, $perm7, $perm5, $perm9, $perm10, $perm11]);
