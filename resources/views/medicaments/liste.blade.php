@@ -26,9 +26,12 @@
                             <td>{{$med['nomCommercial']}}</td>
                             <td>{{$fam['nomFamille']}}</td>
 
-                                <td><a href="{{ action('MedicamentsController@show', $med['numeroProduit'])}}" class="btn btn-primary">afficher</a></td>
                                 <td>
-                                    <form method="POST" action="{{ action('MedicamentsController@destroy', $med['numeroProduit']) }}">
+                                    <a href="{{ action('MedicamentsController@show', $med['id'])}}" class="btn btn-primary">Afficher</a>
+                                    <a href="{{ action('MedicamentsController@edit', $med['id'])}}" class="btn btn-primary">Modifier</a>
+                                </td>
+                                <td>
+                                    <form method="POST" action="{{ action('MedicamentsController@destroy', $med['id']) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">
@@ -42,6 +45,11 @@
                         </tbody>
                     </table>
 
+                    <div class="container">
+                        <div class="row">
+                        <a href="{{action('MedicamentsController@create')}}" class="btn btn-secondary">Ajouter un médicament</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

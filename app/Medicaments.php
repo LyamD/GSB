@@ -7,16 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Medicaments extends Model
 {
     protected $table = 'medicaments';
-    protected $primaryKey = 'numeroProduit';
-
-    public $incrementing = false;
-    protected $keyType = 'string';
 
     protected $fillable = [
+        'numeroProduit',
         'nomCommercial',
         'effets',
         'contreIndications',
         'prixEchantillon',
+        'familleMedicament_id'
     ];
 
     public function famille()

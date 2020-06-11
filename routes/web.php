@@ -45,10 +45,10 @@ Route::resource('home/practiciens/specialites', 'SpecialitesController')->only(
 
 //MedicamentsController
 Route::resource('home/medicaments', 'MedicamentsController')->only(
-    ['index', 'show', 'store', 'update', 'destroy']
+    ['index', 'show', 'create', 'edit', 'store', 'update', 'destroy']
 )->middleware(['permission:gerer_medicaments']);
 
-Route::resource('home/medicaments/famille/medicaments', 'FamilleMedicamentController')->only(
+Route::resource('home/famille', 'FamilleMedicamentController')->only(
     ['index', 'show', 'edit', 'store', 'update', 'destroy']
 )->middleware(['permission:gerer_medicaments']);
 // ---- resources 'manuelle'
