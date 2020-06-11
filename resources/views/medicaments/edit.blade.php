@@ -95,7 +95,11 @@
                                         <label for="familleID">Famille</label>
                                         <select class="form-control" id="familleID" name="familleID">
                                             @foreach ($familles as $fam)
-                                            <option value="{{$fam['id']}}">{{$fam['nomFamille']}}</option>
+                                            <option value="{{$fam['id']}}"
+                                            @if ($fam['id'] == $medicament['familleMedicament_id'])
+                                                selected
+                                            @endif
+                                            >{{$fam['nomFamille']}}</option>
                                             @endforeach
                                         </select>
 

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 @php
-                    use App\User;
+                use App\User;
                 @endphp
                 <div class="card-body">
                     <h4 class="mt-2 mb-2">Liste des visites</h4>
@@ -37,9 +37,21 @@
                                 <td>{{$vis['motif']}}</td>
                                 <td>{{$vis['bilan']}}</td>
                                 <td>
-                                    <a href="{{  action('VisiteController@show', $vis['id']) }}" class="btn btn-primary">
+                                    <a href="{{  action('VisiteController@show', $vis['id']) }}"
+                                        class="btn btn-primary">
                                         Afficher
                                     </a>
+                                    <a href="{{  action('VisiteController@edit', $vis['id']) }}"
+                                        class="btn btn-primary">
+                                        Modifier
+                                    </a>
+                                    <form method="POST" action="{{ action('VisiteController@destroy', $vis['id']) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            {{ __('Supprimer') }}
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

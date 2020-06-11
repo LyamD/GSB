@@ -48,4 +48,35 @@ class VisiteController extends Controller
         $visite->save();
         return redirect('home/visite');
     }
+
+    public function edit($id)
+    {
+        $visite = Visite::find($id);
+        $practiciens = User::role('practicien')->get();
+        $visiteurs = User::role('visiteurMedicaux')->get();
+
+        return view('visite.edit')->with('visite', $visite)->with('practiciens', $practiciens)->with('visiteurs', $visiteurs);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $visite = Visite::find($id);
+
+        $visite->motif = $request->input('motif');
+        $visite->bilan = $request->input('bilan');
+        $visite->dateMission = $request->input('dateMission');
+        $visite->visiteurMedicaux_id = $request->input('visiteurMedicaux_id');
+        $visite->utilisateurs_id = $request->input('utilisateurs_id');
+
+        $visite->save();
+        return back()->withInput();
+    }
+
+    public function destroy($id)
+    {
+        $visite = Visite::find($id);
+        $visite->delete();
+
+        return redirect('home/visite');
+    }
 }
