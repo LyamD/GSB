@@ -48,6 +48,10 @@ Route::resource('home/medicaments', 'MedicamentsController')->only(
     ['index', 'show', 'create', 'edit', 'store', 'update', 'destroy']
 )->middleware(['permission:gerer_medicaments']);
 
+Route::resource('home/interactions', 'InteractionsController')->only([
+    'store', 'update', 'destroy'
+]);
+
 Route::resource('home/famille', 'FamilleMedicamentController')->only(
     ['index', 'show', 'edit', 'store', 'update', 'destroy']
 )->middleware(['permission:gerer_medicaments']);

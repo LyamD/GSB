@@ -8,11 +8,6 @@
                 <div class="card-header">Dashboard</div>
                 @php
                     use App\Medicaments;
-                    $interactions = DB::table('melange')
-                                            ->where('numeroProduit', $medicament['numeroProduit'])
-                                            ->orWhere('numeroProduit_1', $medicament['numeroProduit'])
-                                            ->get();
-
                     $fam = $medicament->famille;
                 @endphp
                 <div class="card-body">
@@ -39,9 +34,9 @@
                         <tbody>
                             @foreach ($interactions as $item)
                                 @php
-                                    $medInt = Medicaments::find($item->numeroProduit);
+                                    $medInt = Medicaments::find($item->Produit_id);
                                     if ($medInt->is($medicament)) {
-                                        $medInt = Medicaments::find($item->numeroProduit_1);
+                                        $medInt = Medicaments::find($item->Produit_1_id);
                                     }
                                 @endphp
                                 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Medicaments;
 use App\FamilleMed;
+use App\Interactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -64,19 +65,25 @@ class MedicamentsController extends Controller
     public function show($id)
     {
         $med = Medicaments::find($id);
-        return view('medicaments.show')->with('medicament', $med);
+        $interactions = Interactions::where('Produit_id', $med['id'])
+                                            ->orWhere('Produit_1_id', $med['id'])
+                                            ->get();
+
+        return view('medicaments.show')->with('medicament', $med)->with('interactions', $interactions);
     }
 
     
     public function edit($id)
     {
         $med = Medicaments::find($id);
+        $medliste = Medicaments::all();
         $familles = FamilleMed::all();
-        return view('medicaments.edit')->with('medicament', $med)->with('familles', $familles);
-    }
+        $interactions = Interactions::where('Produit_id', $med['id'])
+                                            ->orWhere('Produit_1_id', $med['id'])
+                                            ->get();
 
-    
-    
+        return view('medicaments.edit')->with('medicament', $med)->with('familles', $familles)->with('interactions', $interactions)->with('medliste', $medliste);
+    }
 
     
     public function destroy($id)
@@ -85,10 +92,5 @@ class MedicamentsController extends Controller
         $med->delete();
 
         return back();
-    }
-
-    public function ajouterInteraction(Request $request, $id)
-    {
-        # code...
     }
 }
