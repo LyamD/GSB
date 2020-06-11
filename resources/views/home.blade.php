@@ -49,17 +49,16 @@
                         Gérer les visiteurs
                     </a>
                     @endcan
-
-                    @can('gerer_visite')
-                    {{-- <a href="{{  action('VisiteurMedicauxController@') }}" class="btn btn-dark">
-                        Gérer mes visites
-                    </a> --}}
-                    @endcan
-
-
+                    
                     @can('gerer_specialites')
                     <a href="{{  action('SpecialitesController@index') }}" class="btn btn-dark">
                         Liste des specialites
+                    </a>
+                    @endcan
+                    
+                    @can('gerer_visite')
+                    <a href="{{  action('VisiteController@index') }}" class="btn btn-dark">
+                        liste des visites
                     </a>
                     @endcan
 
@@ -74,6 +73,7 @@
                         Liste des familles de médicaments
                     </a>
                     @endcan
+
 
 
                     </p>
