@@ -62,6 +62,9 @@ Route::resource('home/visite', 'VisiteController')->only(
 )->middleware(['permission:gerer_visite']);
 // ---- resources 'manuelle'
 
+//Visite & medicaments
+Route::post('home/visite/addOffert', 'VisiteController@addOffert')->name('visite.addOffert');
+Route::post('home/visite/removeOffert', 'VisiteController@removeOffert')->name('visite.removeOffert');
 
 //Utilisateurs
 Route::get('home/utilisateurs/{id}/changerRole', 'RoleController@changerRole')

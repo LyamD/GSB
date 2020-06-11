@@ -55,7 +55,7 @@
                                         @endphp
                                         <tr>
                                             <td> {{$med['numeroProduit']}} </td>
-                                            <td> {{$med['numeroProduit']}} </td>
+                                            <td> {{$med['nomCommercial']}} </td>
                                             <td> {{$nbOffert}} </td>
                                             <td> {{$cout}}€ </td>
                                         </tr>

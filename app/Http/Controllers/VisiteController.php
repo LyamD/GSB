@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Visite;
 use App\User;
+use App\Medicaments;
 
 class VisiteController extends Controller
 {
@@ -56,8 +57,14 @@ class VisiteController extends Controller
         $practiciens = User::role('practicien')->get();
         $visiteurs = User::role('visiteurMedicaux')->get();
         $medicaments = $visite->medicaments()->get();
+        $allMedicaments = Medicaments::all();
 
-        return view('visite.edit')->with('visite', $visite)->with('practiciens', $practiciens)->with('visiteurs', $visiteurs)->with('medicaments', $medicaments);
+        return view('visite.edit')
+        ->with('visite', $visite)
+        ->with('practiciens', $practiciens)
+        ->with('visiteurs', $visiteurs)
+        ->with('medicaments', $medicaments)
+        ->with('allMedicaments', $allMedicaments);
     }
 
     public function update(Request $request, $id)
@@ -80,5 +87,21 @@ class VisiteController extends Controller
         $visite->delete();
 
         return redirect('home/visite');
+    }
+
+    public function addOffert(Request $request)
+    {
+        $visite = Visite::find($request->input('visite_id'));
+        $visite->medicaments()->attach($request->input('medicament_id'), ['offert' => $request->input('nbOffert')]);
+
+        return back()->withInput();
+    }
+
+    public function removeOffert(Request $request)
+    {
+        $visite = Visite::find($request->input('visite_id'));
+        $visite->medicaments()->detach($request->input('medicament_id'));
+
+        return back()->withInput();
     }
 }

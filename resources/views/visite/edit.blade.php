@@ -52,8 +52,8 @@
                                         <label for="utilisateurs_id">Practicien</label>
                                         <select class="form-control" id="utilisateurs_id" name="utilisateurs_id">
                                             @foreach ($practiciens as $prac)
-                                            <option value="{{$prac['id']}}" 
-                                            @if($prac['id']==$visite['utilisateurs_id']) selected @endif>
+                                            <option value="{{$prac['id']}}" @if($prac['id']==$visite['utilisateurs_id'])
+                                                selected @endif>
                                                 {{$prac['nom'] . " " . $prac['prenom']}}</option>
                                             @endforeach
                                         </select>
@@ -66,8 +66,8 @@
                                         <select class="form-control" id="visiteurMedicaux_id"
                                             name="visiteurMedicaux_id">
                                             @foreach ($visiteurs as $vis)
-                                            <option value="{{$vis['id']}}" 
-                                            @if($vis['id']==$visite['visiteurMedicaux_id']) selected @endif>
+                                            <option value="{{$vis['id']}}"
+                                                @if($vis['id']==$visite['visiteurMedicaux_id']) selected @endif>
                                                 {{$vis['nom'] . " " . $vis['prenom']}}</option>
                                             @endforeach
                                         </select>
@@ -99,7 +99,77 @@
                     </div>
 
                     <div class="container">
-                        Medicaments
+                        <h4 class="mt-5">Médicaments présenté</h4>
+                        <table class="table">
+                            <thead>
+                                <th>Numéro Produit</th>
+                                <th>Nom Commercial</th>
+                                <th>Nombre d'échantillons offert</th>
+                                <th>Coût</th>
+                                <th>Supprimer</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($medicaments as $med)
+                                @php
+                                $nbOffert = $med->pivot->offert;
+                                $cout = $med['prixEchantillon'] * $nbOffert;
+                                @endphp
+                                <tr>
+                                    <td> {{$med['numeroProduit']}} </td>
+                                    <td> {{$med['nomCommercial']}} </td>
+                                    <td> {{$nbOffert}} </td>
+                                    <td> {{$cout}}€ </td>
+                                    <td>
+                                        <form method="POST" action="{{ action('VisiteController@removeOffert') }}">
+                                            @csrf
+                                            <input type="hidden" value=" {{$visite['id']}} " name="visite_id">
+                                            <input type="hidden" value=" {{$med['id']}} " name="medicament_id">
+                                            <button type="submit" class="btn btn-danger">
+                                                {{ __('Supprimer') }}
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <form method="POST" action=" {{action('VisiteController@addOffert')}} ">
+                                @csrf
+                                <input type="hidden" value=" {{$visite['id']}} " name="visite_id">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="medicament_id">Médicaments présenté</label>
+                                        <select class="form-control" id="medicament_id" name="medicament_id">
+                                            @foreach ($allMedicaments as $med)
+                                            <option value="{{$med['id']}}">
+                                                {{$med['numeroProduit'] . " " . $med['nomCommercial']}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nbOffert">Nombre d'échantillons offert</label>
+                                        <input id="nbOffert" value="0"
+                                            class="form-control @error('nbOffert') is-invalid @enderror" name="nbOffert"
+                                            required>
+
+                                        @error('nbOffert')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Ajouter') }}
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
